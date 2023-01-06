@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1> Contador de CLIQUES!</h1>
+
+        <button onclick="increment()">INCREMENTAR</button>
+        <h2 id="counting"></h2>
+        <button onclick="decrement()">ZERAR</button>
+    </div>
+
+
+    <script>
+        /* Crie uma página que tenha o título "Contador de Cliques". 
+        Na página deve ter 2 botões, um deles deve estar escrito INCREMENTAR e o outro deve estar escrito ZERAR CONTADOR, 
+        logo abaixo dos  botões deve ter um parágrafo contendo a seguinte frase "O contador está com 0 cliques". 
+        Conforme o usuário vai clicando no botão Incrementar deve ser incrementado uma variável no javascript e ir atualizando a página conforme o número de cliques.
+        Ao clicar no botão Zerar contador o parágrafo deve sumir da tela.
+        Ao clicar no botão de Incrementar novamente o parágrafo deve aparecer com a mensagem "O contador está com 1 cliques" e ir atualizando conforme o usuário for clicando para incrementar. */
+
+        let start = 0;
+        document.getElementById('counting').innerText = start;
+
+        function increment() {
+            start = start + 1;
+            document.getElementById('counting').innerText = start;
+        }
+
+        function decrement() {
+            start = 0;
+            document.getElementById('counting').innerText = start;
+        }
+    </script>
+</body>
+
+</html>
