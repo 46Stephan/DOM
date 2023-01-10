@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-Br>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 500px;
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 150px;
+        height: 20px;
+        border: 1px solid black;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="button" id="buttonAdd">Criar contato</div>
+      <div class="button" id="buttonList">Listar contatos</div>
+      <div class="button" id="buttonUpdate">Atualizar contato</div>
+      <div class="button" id="buttonDelete">Deletar contato</div>
+      <div id="container-show"></div>
+    </div>
+    <script>
+      // salva no localstorage
+      function salvarLocalStorage() {
+        localStorage.setItem("list", JSON.stringify(getStorage));
+      }
+
+      // pega do localstorage
+      const getStorage = JSON.parse(localStorage.getItem("list")) || [
+        { id: 99, nome: "moises", telefone: "9000" },
+      ];
+      console.log(getStorage);
+      // const setStorage = localStorage.setItem("list", JSON.stringify(data));
+
+      // localStorage = string
+      // js = obj
+
+      const buttonAdd = document.getElementById("buttonAdd");
+      const buttonList = document.getElementById("buttonList");
+      const buttonUpdate = document.getElementById("buttonUpdate");
+      const buttonDelete = document.getElementById("buttonDelete");
+
+      function addPessoa() {
+        const nome = prompt("Digite o nome");
+        const telefone = prompt("Digite o telefone");
+        if (!nome || !telefone) {
+          return alert("Nome e telefone devem ser informados");
+        }
+
+        getStorage.find((f) => {
+          if (f.telefone === telefone) {
+            return alert("Numero ja cadastrado");
+          }
+        });
+        const objToAdd = {
+          id: Math.floor(Math.random() * 20),
+          nome,
+          telefone,
+        };
+        getStorage.push(objToAdd);
+        console.log(getStorage);
+        salvarLocalStorage();
+      }
+
+      buttonAdd.addEventListener("click", addPessoa);
+
+      function listarPessoas() {
+        const divShow = document.getElementById("container-show");
+        divShow.innerText = "";
+
+        getStorage.map((pessoa) => {
+          divShow.innerHTML += `${pessoa.nome}/`;
+        });
+      }
+
+      buttonList.addEventListener("click", listarPessoas);
+
+      function atualizarPessoa() {
+        console.clear();
+        const id = parseInt(prompt("Digite o id"));
+        const newNome = prompt("Digite o novo nome");
+        const newTelefone = prompt("Digite o novo telefone");
+        const findId = getStorage.find((pessoa) => pessoa.id === id);
+        if (findId) {
+          findId.nome = newNome;
+          findId.telefone = newTelefone;
+          listarPessoas();
+          salvarLocalStorage();
+          alert("Alterado com sucesso!");
+        } else {
+          alert("Pessoa nao encontrada");
+        }
+      }
+
+      buttonUpdate.addEventListener("click", atualizarPessoa);
+
+      function deletarPessoa() {
+        console.clear();
+        const id = parseInt(prompt("Digite o id"));
+        const findId = getStorage.findIndex((pessoa) => pessoa.id === id);
+        if (findId) {
+          getStorage.splice(findId, 1);
+          listarPessoas();
+          salvarLocalStorage();
+          alert("Deletado com sucesso!");
+        } else {
+          alert("Pessoa nao encontrada");
+        }
+      }
+
+      buttonDelete.addEventListener("click", deletarPessoa);
+    </script>
+  </body>
+</html>
