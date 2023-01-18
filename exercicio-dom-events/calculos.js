@@ -1,7 +1,7 @@
 /* Desenvolva aqui a rotina */
 
 let button = document.getElementById('btn_calcular');
-button.addEventListener('click', () =>{
+button.addEventListener('click', () => {
 
 
     let valorBase = Number(document.getElementById('valor_base').value);
@@ -24,17 +24,17 @@ button.addEventListener('click', () =>{
     let res2 = 0;
     let res3 = 0;
 
-    res1 = valorBase+valorTransporte+valorAlimentacao;
+    res1 = valorBase + valorTransporte + valorAlimentacao;
     localStorage.setItem('valorReceita', res1);
 
-    res2 = valorAuto-((valorAuto*descontos)/100);
+    res2 = valorAuto + descontos;
     localStorage.setItem('valorDesconto', res2);
 
-    res3 = res2-res1;
+    res3 = res1 - res2;
     localStorage.setItem('valorTotal', res3);
 
 
-    document.getElementById('valor_receita').value=res1;
-    document.getElementById('valor_descontos').value=res2;
-    document.getElementById('valor_total').value=res3;
+    document.getElementById('valor_receita').value = res1;
+    document.getElementById('valor_descontos').value = res2;
+    document.getElementById('valor_total').value = res3;
 })
